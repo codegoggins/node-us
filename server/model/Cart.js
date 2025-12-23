@@ -1,58 +1,20 @@
 import mongoose from "mongoose";
 
-const cartItemSchema = new mongoose.Schema(
+const cartSchema = new mongoose.Schema(
   {
-    cartId: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Cart",
+      ref: "User",
       required: true,
-      index: true,
+      unique: true,
     },
 
-    productId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Product",
-      required: true,
-    },
-
-    variantId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "ProductVariant",
-      required: true,
-    },
-
-    businessId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Business",
-      required: true,
-    },
-
-    quantity: {
-      type: Number,
-      required: true,
-      min: 1,
-    },
-
-    // SNAPSHOTS (critical)
-    priceSnapshot: {
-      type: Number,
-      required: true,
-    },
-
-    variantSnapshot: {
-      sku: String,
-      attributes: {
-        size: String,
-        color: String,
-      },
-    },
-
-    productSnapshot: {
-      name: String,
-      image: String,
+    isActive: {
+      type: Boolean,
+      default: true,
     },
   },
   { timestamps: true }
 );
 
-export default mongoose.model("CartItem", cartItemSchema);
+export default mongoose.model("Cart", cartSchema);

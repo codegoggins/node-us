@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
-import { PRODUCT_STATUS } from "../constants/enums.js";
+import { PRODUCT_STATUS } from "../enum/enum.js";
 
 const productSchema = new mongoose.Schema(
   {
-    businessId: {
+    vendorId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Business",
+      ref: "Vendor",
       required: true,
       index: true,
     },
@@ -18,8 +18,8 @@ const productSchema = new mongoose.Schema(
 
     status: {
       type: String,
-      enum: PRODUCT_STATUS,
-      default: "draft",
+      enum: Object.values(PRODUCT_STATUS),
+      default: PRODUCT_STATUS.DRAFT,
     },
 
     isActive: {

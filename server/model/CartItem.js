@@ -1,2 +1,59 @@
-// CartItem must snapshot variant data
-// Never trust live product data after adding to cart.
+import mongoose from "mongoose";
+
+const cartItemSchema = new mongoose.Schema(
+  {
+    cartId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Cart",
+      required: true,
+      index: true,
+    },
+
+    productId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product",
+      required: true,
+    },
+
+    variantId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "ProductVariant",
+      required: true,
+    },
+
+    vendorId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Vendor",
+      required: true,
+    },
+
+    quantity: {
+      type: Number,
+      required: true,
+      min: 1,
+    },
+
+    // Snapshots to preserve data at time of adding to cart
+    priceSnapshot: {
+      type: Number,
+      required: true,
+    },
+
+    variantSnapshot: {
+      sku: String,
+      attributes: {
+        size: String,
+        color: String,
+        material: String,
+      },
+    },
+
+    productSnapshot: {
+      name: String,
+      image: String,
+    },
+  },
+  { timestamps: true }
+);
+
+export default mongoose.model("CartItem", cartItemSchema);

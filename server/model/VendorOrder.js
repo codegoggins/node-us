@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { ORDER_STATUS } from "../constants/enums.js";
+import { ORDER_STATUS } from "../enum/enum.js";
 
 const vendorOrderSchema = new mongoose.Schema(
   {

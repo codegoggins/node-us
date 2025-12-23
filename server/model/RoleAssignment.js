@@ -13,9 +13,9 @@ const roleAssignmentSchema = new mongoose.Schema(
       ref: "Role",
       required: true,
     },
-    // null = global role
-    // businessId = business-scoped role
-    scopeId: {
+    // null = global role (platform admin)
+    // vendorId = vendor-scoped role
+    vendorId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Vendor",
       default: null,
@@ -24,5 +24,12 @@ const roleAssignmentSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+/**
+ * Enforce:
+ * - One user can have only ONE role per vendor
+ * - One user can have only ONE global role (when vendorId is null)
+ */
+roleAssignmentSchema.index({ userId: 1, vendorId: 1 }, { unique: true });
 
 export default mongoose.model("RoleAssignment", roleAssignmentSchema);

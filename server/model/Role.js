@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { SCOPES } from "../enum/enum.js";
 
 const roleSchema = new mongoose.Schema({
